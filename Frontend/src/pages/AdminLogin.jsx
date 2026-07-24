@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShieldCheck, Lock, User, AlertCircle } from 'lucide-react';
+import { ShieldCheck, Lock, User, AlertCircle, Terminal } from 'lucide-react';
 import API_BASE_URL from '../config/api';
 
 export default function AdminLogin() {
@@ -40,24 +40,29 @@ export default function AdminLogin() {
   return (
     <div className="container">
       <div className="admin-card glass-panel">
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <ShieldCheck className="gradient-text" size={48} style={{ margin: '0 auto 0.5rem' }} />
-          <h2 style={{ fontSize: '1.75rem', fontWeight: 800 }}>Admin Portal Login</h2>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '0.25rem' }}>
-            Enter your admin credentials to manage daily posts.
+        <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+          <div className="brand-icon-box" style={{ width: '54px', height: '54px', margin: '0 auto 1.25rem', borderRadius: '12px' }}>
+            <Terminal size={28} />
+          </div>
+          <h2 style={{ fontSize: '1.85rem', fontWeight: 800 }}>The HIT Times</h2>
+          <div className="brand-event-badge" style={{ marginTop: '0.35rem', justifyContent: 'center' }}>
+            <span className="brand-event-dot"></span> Admin Portal • TSP
+          </div>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '0.75rem' }}>
+            Sign in with authorized administrator credentials to manage daily technical code articles.
           </p>
         </div>
 
         {error && (
-          <div style={{ background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#f87171', padding: '0.75rem 1rem', borderRadius: 'var(--radius-sm)', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem' }}>
+          <div style={{ background: 'rgba(239, 68, 68, 0.12)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#f87171', padding: '0.85rem 1rem', borderRadius: 'var(--radius-sm)', marginBottom: '1.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem' }}>
             <AlertCircle size={18} /> {error}
           </div>
         )}
 
         <form onSubmit={handleLogin}>
           <div className="form-group">
-            <label className="form-label flex items-center gap-1">
-              <User size={16} /> Username
+            <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <User size={15} /> Username
             </label>
             <input
               type="text"
@@ -70,8 +75,8 @@ export default function AdminLogin() {
           </div>
 
           <div className="form-group">
-            <label className="form-label flex items-center gap-1">
-              <Lock size={16} /> Password
+            <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <Lock size={15} /> Password
             </label>
             <input
               type="password"
@@ -86,10 +91,10 @@ export default function AdminLogin() {
           <button
             type="submit"
             className="btn-primary"
-            style={{ width: '100%', padding: '0.85rem', borderRadius: 'var(--radius-sm)', fontSize: '1rem', fontWeight: 600, marginTop: '0.5rem' }}
+            style={{ width: '100%', padding: '0.9rem', borderRadius: 'var(--radius-sm)', fontSize: '1rem', fontWeight: 700, marginTop: '1rem' }}
             disabled={loading}
           >
-            {loading ? 'Authenticating...' : 'Sign In to Dashboard'}
+            {loading ? 'Authenticating...' : 'Sign In to Portal'}
           </button>
         </form>
       </div>

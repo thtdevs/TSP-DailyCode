@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Code2, ShieldCheck, LogOut, PlusCircle } from 'lucide-react';
+import { Terminal, ShieldCheck, LogOut, PlusCircle, Menu, X, BookOpen } from 'lucide-react';
 
 export default function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const token = localStorage.getItem('token');
   const username = localStorage.getItem('username');
   const navigate = useNavigate();
@@ -16,31 +17,68 @@ export default function Header() {
   return (
     <header className="navbar">
       <div className="container nav-content">
-        <Link to="/" className="brand-logo">
-          <Code2 className="gradient-text" size={28} />
-          <span>TSP<span className="gradient-text">DailyCode</span></span>
+        <Link to="/" className="brand-wrapper">
+          <div className="brand-icon-box">
+            <Terminal size={22} />
+          </div>
+          <div className="brand-title-group">
+            <span className="brand-main-title">The HIT Times</span>
+            <span className="brand-event-badge">
+              <span className="brand-event-dot"></span> TSP • Trainee Scholar Program
+            </span>
+          </div>
         </Link>
         
-        <nav className="nav-links">
-          <Link to="/" className="nav-btn btn-secondary">Articles</Link>
+        <nav className={`nav-links ${mobileMenuOpen ? 'mobile-menu-open' : ''}`}>
+          <Link 
+            to="/" 
+            className="nav-btn btn-secondary"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <BookOpen size={16} /> Articles
+          </Link>
+
           {token ? (
             <>
-              <Link to="/admin" className="nav-btn btn-secondary flex items-center gap-1">
+              <Link 
+                to="/admin" 
+                className="nav-btn btn-secondary"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 <ShieldCheck size={16} /> Dashboard
               </Link>
-              <Link to="/admin/editor" className="nav-btn btn-primary flex items-center gap-1">
-                <PlusCircle size={16} /> New Post
+              <Link 
+                to="/admin/editor" 
+                className="nav-btn btn-primary"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <PlusCircle size={16} /> New Article
               </Link>
-              <button onClick={handleLogout} className="nav-btn btn-secondary flex items-center gap-1">
+              <button 
+                onClick={() => { setMobileMenuOpen(false); handleLogout(); }} 
+                className="nav-btn btn-secondary"
+              >
                 <LogOut size={16} /> Logout ({username})
               </button>
             </>
           ) : (
-            <Link to="/admin/login" className="nav-btn btn-primary flex items-center gap-1">
+            <Link 
+              to="/admin/login" 
+              className="nav-btn btn-primary"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               <ShieldCheck size={16} /> Admin Portal
             </Link>
           )}
         </nav>
+
+        <button 
+          className="mobile-nav-toggle"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle Menu"
+        >
+          {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </div>
     </header>
   );
